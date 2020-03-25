@@ -1,9 +1,9 @@
 <script>
-  import Unoffcial from "../components/Unoffcial.svelte";
+  import Offcial from "../components/Offcial.svelte";
 </script>
 
 <svelte:head>
   <title>Covid19 Status</title>
 </svelte:head>
 
-<Unoffcial />
+<Offcial />
