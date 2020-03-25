@@ -4,43 +4,12 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
-  table,
-  td,
-  th {
-    font-family: "Noto Sans", sans-serif;
-    border: 1px solid #e9ecef;
-    border-collapse: collapse;
-    padding: 0.75rem;
-    background-color: #ffffff;
-  }
-
-  /* tr:nth-child(even) td {
-    background-color: #f2f2f2;
-  } */
-
-  tr:hover td {
-    background-color: #f2f2f2;
-  }
-
-  table {
-    margin-top: 10px;
-    width: 71%;
-    margin-left: 40px;
-  }
-
-  th {
-    text-align: left;
-  }
-
-  .state {
-    font-weight: 600;
-    color: #72777a;
-  }
 </style>
 
 <script>
   import { onMount } from "svelte";
   import Box from "../shared/components/Box.svelte";
+  import { TableSort } from "svelte-tablesort";
 
   let currentData;
   let previousData;
@@ -104,22 +73,20 @@
       diff="{diffData.deaths}"
     />
   </div>
-  <table>
-    <tr>
-      <th>State</th>
-      <th>Total Cases</th>
-      <th>Total Active Cases</th>
-      <th>Total Recovered</th>
-      <th>Total Dealth</th>
+  <TableSort items="{currentData.statewise}">
+    <tr slot="thead">
+      <th data-sort="state">State</th>
+      <th data-sort="confirmed" data-sort-initial="descending">Total Cases</th>
+      <th data-sort="active">Total Active Cases</th>
+      <th data-sort="recovered">Total Recovered</th>
+      <th data-sort="deaths">Total Dealths</th>
     </tr>
-    {#each currentData.statewise as data}
-      <tr>
-        <td class="state">{data.state}</td>
-        <td>{data.confirmed}</td>
-        <td>{data.active}</td>
-        <td>{data.recovered}</td>
-        <td>{data.deaths}</td>
-      </tr>
-    {/each}
-  </table>
+    <tr slot="tbody" let:item="{data}">
+      <td class="state">{data.state}</td>
+      <td>{data.confirmed}</td>
+      <td>{data.active}</td>
+      <td>{data.recovered}</td>
+      <td>{data.deaths}</td>
+    </tr>
+  </TableSort>
 {/if}
