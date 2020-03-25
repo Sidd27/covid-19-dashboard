@@ -5,7 +5,7 @@
     justify-content: space-evenly;
   }
 
-  .chart-table-container {
+  .table-container {
     margin: 2em 0;
     display: flex;
     overflow-x: scroll;
@@ -16,12 +16,14 @@
 <script>
   import { onMount } from "svelte";
   import Box from "../shared/components/Box.svelte";
+  import PageLoader from "../shared/components/PageLoader.svelte";
   import { TableSort } from "svelte-tablesort";
 
   let currentData;
   let previousData;
   let diffData;
   let isMobile = false;
+  let loading = false;
 
   function getDiff(current, prev) {
     return {
@@ -33,6 +35,7 @@
   }
 
   async function getData() {
+    loading = true;
     await fetch(
       `https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise/history`
     )
@@ -43,6 +46,7 @@
           previousData = res.data.history[0];
           diffData = getDiff(currentData, previousData);
         }
+        loading = false;
       });
   }
 
@@ -79,7 +83,7 @@
       diff="{diffData.deaths}"
     />
   </div>
-  <div class="chart-table-container">
+  <div class="table-container">
     {#if isMobile}
       <TableSort items="{currentData.statewise}">
         <tr slot="thead">
@@ -118,4 +122,6 @@
       </TableSort>
     {/if}
   </div>
+{:else if loading}
+  <PageLoader />
 {/if}

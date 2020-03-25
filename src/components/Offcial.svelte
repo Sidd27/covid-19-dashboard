@@ -10,6 +10,13 @@
     margin-bottom: 20px;
   }
 
+  .table-container {
+    margin: 2em 0;
+    display: flex;
+    overflow-x: scroll;
+    justify-content: space-evenly;
+  }
+
   .charts {
     display: flex;
     flex-wrap: wrap;
@@ -17,7 +24,6 @@
   }
 
   .chart-container {
-    margin: 2em auto;
     padding: 15px;
     border: 1px solid rgba(0, 0, 0, 0.0625);
     background-color: #fff;
@@ -27,21 +33,30 @@
   @media (max-width: 992px) {
     .chart-container {
       width: 98%;
-      margin: 10px 0 0;
+      margin: 0;
+    }
+    .chart-container + .chart-container {
+      margin-top: 1em;
     }
   }
 </style>
 
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import Chart from "chart.js";
+  import { TableSort } from "svelte-tablesort";
   import Box from "../shared/components/Box.svelte";
+  import PageLoader from "../shared/components/PageLoader.svelte";
 
   let currentData;
   let previousData;
   let diffData;
   let confirmedChart;
   let localVsForeignChart;
+  let tableData;
+  let isMobile = false;
+  let chartTimeOut;
+  let loading = false;
 
   function getDiff(current, prev) {
     return {
@@ -50,6 +65,15 @@
       deaths: current.summary.deaths - prev.summary.deaths,
       active: current.summary.active - prev.summary.active
     };
+  }
+
+  function getTableData(rawData) {
+    const dataArray = rawData.map(ele => {
+      ele.total = ele.confirmedCasesIndian + ele.confirmedCasesForeign;
+      ele.active = ele.total - (ele.discharged + ele.deaths);
+      return ele;
+    });
+    return dataArray;
   }
 
   function getActive(data) {
@@ -136,6 +160,7 @@
   }
 
   async function getData() {
+    loading = true;
     await fetch(`https://api.rootnet.in/covid19-in/stats/daily`)
       .then(r => r.json())
       .then(res => {
@@ -146,14 +171,22 @@
           previousData = res.data[dataLen - 2];
           previousData.summary.active = getActive(previousData);
           diffData = getDiff(currentData, previousData);
-          createConfirmedChart(res.data);
-          createLocalVsForeign(res.data);
+          tableData = getTableData(currentData.regional);
+          chartTimeOut = setTimeout(() => {
+            createConfirmedChart(res.data);
+            createLocalVsForeign(res.data);
+          }, 0);
         }
+        loading = false;
       });
   }
 
   onMount(() => {
     getData();
+    isMobile = window.innerWidth < 560;
+  });
+  onDestroy(() => {
+    clearTimeout(chartTimeOut);
   });
 </script>
 
@@ -184,14 +217,53 @@
       diff="{diffData.deaths}"
     />
   </div>
+  <div class="table-container">
+    {#if isMobile}
+      <TableSort items="{tableData}">
+        <tr slot="thead">
+          <th data-sort="loc">State / UT</th>
+          <th data-sort="total" data-sort-initial="descending">CNFMRD</th>
+          <th data-sort="active">ACTV</th>
+          <th data-sort="discharged">RCVRD</th>
+          <th data-sort="deaths">DCSD</th>
+        </tr>
+        <tr slot="tbody" let:item="{data}">
+          <td class="state">{data.loc}</td>
+          <td>{data.total}</td>
+          <td>{data.active}</td>
+          <td>{data.discharged}</td>
+          <td>{data.deaths}</td>
+        </tr>
+      </TableSort>
+    {:else}
+      <TableSort items="{tableData}">
+        <tr slot="thead">
+          <th data-sort="loc">State / UT</th>
+          <th data-sort="total" data-sort-initial="descending">Confirmed</th>
+          <th data-sort="active">Active</th>
+          <th data-sort="discharged">Recovered</th>
+          <th data-sort="deaths">Dealths</th>
+        </tr>
+        <tr slot="tbody" let:item="{data}">
+          <td class="state">{data.loc}</td>
+          <td>{data.total}</td>
+          <td>{data.active}</td>
+          <td>{data.discharged}</td>
+          <td>{data.deaths}</td>
+        </tr>
+      </TableSort>
+    {/if}
+  </div>
+  <div class="charts">
+    <div class="chart-container">
+      <h3 class="chart-title">Total Confirmed Case</h3>
+      <canvas bind:this="{confirmedChart}"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3 class="chart-title">Indian Vs Foreigner</h3>
+      <canvas bind:this="{localVsForeignChart}"></canvas>
+    </div>
+  </div>
+{:else if loading}
+  <PageLoader />
 {/if}
-<div class="charts">
-  <div class="chart-container">
-    <h3 class="chart-title">Total Confirmed Case</h3>
-    <canvas bind:this="{confirmedChart}"></canvas>
-  </div>
-  <div class="chart-container">
-    <h3 class="chart-title">Indian Vs Foreigner</h3>
-    <canvas bind:this="{localVsForeignChart}"></canvas>
-  </div>
-</div>
