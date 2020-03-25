@@ -4,6 +4,13 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
+
+  .chart-table-container {
+    margin: 2em 0;
+    display: flex;
+    overflow-x: scroll;
+    justify-content: space-evenly;
+  }
 </style>
 
 <script>
@@ -14,6 +21,7 @@
   let currentData;
   let previousData;
   let diffData;
+  let isMobile = false;
 
   function getDiff(current, prev) {
     return {
@@ -40,6 +48,7 @@
 
   onMount(() => {
     getData();
+    isMobile = window.innerWidth < 560;
   });
 </script>
 
@@ -73,20 +82,43 @@
       diff="{diffData.deaths}"
     />
   </div>
-  <TableSort items="{currentData.statewise}">
-    <tr slot="thead">
-      <th data-sort="state">State</th>
-      <th data-sort="confirmed" data-sort-initial="descending">Total Cases</th>
-      <th data-sort="active">Total Active Cases</th>
-      <th data-sort="recovered">Total Recovered</th>
-      <th data-sort="deaths">Total Dealths</th>
-    </tr>
-    <tr slot="tbody" let:item="{data}">
-      <td class="state">{data.state}</td>
-      <td>{data.confirmed}</td>
-      <td>{data.active}</td>
-      <td>{data.recovered}</td>
-      <td>{data.deaths}</td>
-    </tr>
-  </TableSort>
+  <div class="chart-table-container">
+    {#if isMobile}
+      <TableSort items="{currentData.statewise}">
+        <tr slot="thead">
+          <th data-sort="state">State / UT</th>
+          <th data-sort="confirmed" data-sort-initial="descending">CNFMRD</th>
+          <th data-sort="active">ACTV</th>
+          <th data-sort="recovered">RCVRD</th>
+          <th data-sort="deaths">DCSD</th>
+        </tr>
+        <tr slot="tbody" let:item="{data}">
+          <td class="state">{data.state}</td>
+          <td>{data.confirmed}</td>
+          <td>{data.active}</td>
+          <td>{data.recovered}</td>
+          <td>{data.deaths}</td>
+        </tr>
+      </TableSort>
+    {:else}
+      <TableSort items="{currentData.statewise}">
+        <tr slot="thead">
+          <th data-sort="state">State / UT</th>
+          <th data-sort="confirmed" data-sort-initial="descending">
+            Confirmed
+          </th>
+          <th data-sort="active">Active</th>
+          <th data-sort="recovered">Recovered</th>
+          <th data-sort="deaths">Dealths</th>
+        </tr>
+        <tr slot="tbody" let:item="{data}">
+          <td class="state">{data.state}</td>
+          <td>{data.confirmed}</td>
+          <td>{data.active}</td>
+          <td>{data.recovered}</td>
+          <td>{data.deaths}</td>
+        </tr>
+      </TableSort>
+    {/if}
+  </div>
 {/if}

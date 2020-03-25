@@ -40,29 +40,81 @@ code {
   border-radius: 2px;
 }
 
-.tablesort{
-  margin-top: 10px;
-  width: 71%;
-  margin-left: 40px;
+.tablesort {
+  width: 70%;
 }
 
 .tablesort,
-  td,
-  th {
-    font-family: "Noto Sans", sans-serif;
-    border: 1px solid #e9ecef;
-    border-collapse: collapse;
-    padding: 0.75rem;
-    background-color: #ffffff;
+td,
+th {
+  font-family: "Noto Sans", sans-serif;
+  border: 1px solid #e9ecef;
+  border-collapse: collapse;
+  padding: 0.75rem;
+  background-color: #ffffff;
+}
+
+tr:hover td {
+  background-color: #f2f2f2;
+}
+th {
+  text-align: left;
+}
+.state {
+  font-weight: 600;
+  color: #72777a;
+}
+
+.sortable {
+  position: relative;
+}
+
+@media (min-width: 560px) {
+  .sortable::before {
+    background-image: url("sort.svg");
+    background-size: 10px 20px;
+    background-repeat: no-repeat;
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 15px;
+    right: 5px;
+    z-index: 1;
   }
 
-  tr:hover td {
-    background-color: #f2f2f2;
+  .descending::before {
+    background-image: url("down.svg");
+    background-size: 10px 20px;
+    background-repeat: no-repeat;
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 15px;
+    right: 5px;
+    z-index: 1;
   }
-  th {
-    text-align: left;
+
+  .ascending::before {
+    background-image: url("up.svg");
+    background-size: 10px 20px;
+    background-repeat: no-repeat;
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 15px;
+    right: 5px;
+    z-index: 1;
   }
-  .state {
-    font-weight: 600;
-    color: #72777a;
+}
+
+@media (max-width: 992px) {
+  .tablesort {
+    width: 98%;
   }
+}
+
+@media (max-width: 560px) {
+  .tablesort {
+    font-size: 12px;
+  }
+}
