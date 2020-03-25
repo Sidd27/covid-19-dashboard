@@ -50,6 +50,16 @@
   .active .box-badge {
     background-color: #f3e5f5;
   }
+  @media (max-width: 992px) {
+    .box {
+      width: 48%;
+    }
+  }
+  @media (max-width: 560px) {
+    .box {
+      width: 98%;
+    }
+  }
 </style>
 
 <script>

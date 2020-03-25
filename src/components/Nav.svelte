@@ -38,12 +38,26 @@
 
   a {
     text-decoration: none;
-    padding: 1.25em 0.5em;
+    padding: 20px 10px;
     display: inline-block;
   }
+
   img {
     height: 40px;
+  }
+
+  .logo-small {
+    display: none;
     margin-right: 50px;
+  }
+  @media (max-width: 560px) {
+    .logo-small {
+      display: block;
+      margin: 0 20px 0 10px;
+    }
+    .logo {
+      display: none;
+    }
   }
 </style>
 
@@ -52,7 +66,8 @@
 </script>
 
 <nav>
-  <img src="logo.svg" alt="Coronavirus" />
+  <img class="logo" src="logo.svg" alt="Coronavirus" />
+  <img class="logo-small" src="logo-small.svg" alt="Coronavirus" />
   <ul>
     <li class:active="{segment === undefined}">
       <a href=".">Offcial</a>

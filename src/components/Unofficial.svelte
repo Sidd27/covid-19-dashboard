@@ -1,6 +1,7 @@
 <style>
   .main-data-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
   }
   table,
@@ -17,7 +18,9 @@
     background-color: #f2f2f2;
   } */
 
-  tr:hover td {background-color: #f2f2f2;}
+  tr:hover td {
+    background-color: #f2f2f2;
+  }
 
   table {
     margin-top: 10px;

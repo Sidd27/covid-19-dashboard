@@ -2,6 +2,7 @@
   .main-data-container {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
   }
 
   h3.chart-title {
@@ -21,6 +22,13 @@
     border: 1px solid rgba(0, 0, 0, 0.0625);
     background-color: #fff;
     width: 48%;
+  }
+
+  @media (max-width: 992px) {
+    .chart-container {
+      width: 98%;
+      margin: 10px 0 0;
+    }
   }
 </style>
 
