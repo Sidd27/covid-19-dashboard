@@ -2,7 +2,8 @@
   nav {
     background-color: #fff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
-    display: block;
+    display: flex;
+    align-items: center;
     height: 65px;
     margin-bottom: 0;
     padding: 0;
@@ -13,6 +14,51 @@
     width: 100%;
     z-index: 800;
   }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  /* clearfix */
+  ul::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  li {
+    display: block;
+    float: left;
+    width: 100px;
+    position: relative;
+    text-align: center;
+  }
+
+  li.active {
+    border-bottom: 2px solid rgb(255, 62, 0);
+  }
+
+  a {
+    text-decoration: none;
+    padding: 1.25em 0.5em;
+    display: inline-block;
+  }
+  img {
+    height: 40px;
+    margin-right: 50px;
+  }
 </style>
 
-<nav />
+<script>
+  export let segment;
+</script>
+
+<nav>
+  <img src="logo.svg" alt="Coronavirus" />
+  <ul>
+    <li class:active="{segment === undefined}">
+      <a href=".">Offcial</a>
+    </li>
+    <li class:active="{segment === 'unofficial'}">
+      <a href="unofficial">Unofficial</a>
+    </li>
+  </ul>
+</nav>
