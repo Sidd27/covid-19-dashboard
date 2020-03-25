@@ -46,9 +46,12 @@
     height: 40px;
   }
 
+  .logo {
+    margin-right: 50px;
+  }
+
   .logo-small {
     display: none;
-    margin-right: 50px;
   }
   @media (max-width: 560px) {
     .logo-small {

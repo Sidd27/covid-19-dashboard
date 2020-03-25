@@ -11,6 +11,10 @@
   export let segment;
 </script>
 
+<svelte:head>
+  <title>Covid19 India</title>
+</svelte:head>
+
 <Nav {segment} />
 <main>
   <slot />

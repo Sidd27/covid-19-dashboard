@@ -52,9 +52,6 @@
   });
 </script>
 
-<svelte:head>
-  <title>Covid19 Status</title>
-</svelte:head>
 {#if currentData}
   <div class="main-data-container">
     <Box
