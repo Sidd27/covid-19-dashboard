@@ -118,7 +118,7 @@
           {
             label: "Foreigner",
             fill: false,
-            borderColor: "rgb(0,77,64)",
+            borderColor: "rgb(1,87,155)",
             data: data.ForeignDataSet
           }
         ]
