@@ -2,17 +2,20 @@
   nav {
     background-color: #fff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
+    height: 65px;
     display: flex;
     align-items: center;
-    height: 65px;
     margin-bottom: 0;
     padding: 0;
     position: fixed;
-    -webkit-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
     width: 100%;
-    z-index: 800;
+    z-index: 10;
+    padding: 0 20px;
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
   }
   ul {
     margin: 0;
@@ -47,7 +50,7 @@
   }
 
   .hamburger {
-    padding: 2px 10px;
+    padding: 2px 10px 2px 0;
     height: 32px;
   }
 
@@ -58,6 +61,21 @@
   .logo-small {
     display: block;
   }
+  .helpline {
+    padding: 5px 10px;
+    color: rgb(151, 45, 21);
+    font-weight: 600;
+    border-radius: 3px;
+    border: 1px solid rgb(151, 45, 21);
+    margin-left: auto;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+  }
+  .helpline:hover {
+    background-color: rgb(151, 45, 21);
+    color: #fff;
+  }
 </style>
 
 <script>
@@ -67,20 +85,22 @@
   let showMenu = false;
 </script>
 
-<nav class="hide-mobile">
-  <img class="logo" src="logo.svg" alt="COVID-19-India" />
-  <ul>
-    <li class:active="{segment === undefined}">
-      <a href=".">Offcial</a>
-    </li>
-    <li class:active="{segment === 'unofficial'}">
-      <a href="unofficial">Unofficial</a>
-    </li>
-  </ul>
-</nav>
-
-<nav class="show-mobile">
-  <img class="hamburger" src="hamburger.svg" alt="Menu" on:click="{() => (showMenu = true)}" />
-  <img class="logo-small" src="logo-small.svg" alt="Coronavirus" />
-  <HamburgeMenu bind:show="{showMenu}" {segment} />
+<nav>
+  <div class="nav-container hide-mobile">
+    <img class="logo" src="logo.svg" alt="COVID-19-India" />
+    <ul>
+      <li class:active="{segment === undefined}">
+        <a href=".">Offcial</a>
+      </li>
+      <li class:active="{segment === 'unofficial'}">
+        <a href="unofficial">Unofficial</a>
+      </li>
+    </ul>
+  </div>
+  <div class="nav-container show-mobile">
+    <img class="hamburger" src="hamburger.svg" alt="Menu" on:click="{() => (showMenu = true)}" />
+    <img class="logo-small" src="logo-small.svg" alt="Coronavirus" />
+    <HamburgeMenu bind:show="{showMenu}" {segment} />
+  </div>
+  <a class="helpline" href="tel:+911123978046">Call Helpline</a>
 </nav>
