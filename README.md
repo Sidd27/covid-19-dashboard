@@ -10,7 +10,7 @@ This project use the below project for getting the data via API
 
 Specail thanks to the team of [`api-covid19-in`](https://github.com/amodm/api-covid19-in)
 
-## Contributors
+<!-- ## Contributors
 
 <table border="1">
 <tr>
@@ -27,7 +27,7 @@ Specail thanks to the team of [`api-covid19-in`](https://github.com/amodm/api-co
 </a>
 </td>
 </tr>
-</table>
+</table> -->
 
 ## Bugs and feedback
 
