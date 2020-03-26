@@ -42,8 +42,9 @@
       .then(r => r.json())
       .then(res => {
         if (res.success && res.data) {
-          currentData = res.data.history[1];
-          previousData = res.data.history[0];
+          const historyLen = res.data.history.length;
+          currentData = res.data.history[historyLen - 1];
+          previousData = res.data.history[historyLen - 2];
           diffData = getDiff(currentData, previousData);
         }
         loading = false;
