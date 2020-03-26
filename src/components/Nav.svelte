@@ -20,7 +20,7 @@
   }
   /* clearfix */
   ul::after {
-    content: "";
+    content: '';
     display: block;
     clear: both;
   }
@@ -46,31 +46,29 @@
     height: 40px;
   }
 
+  .hamburger {
+    padding: 2px 10px;
+    height: 32px;
+  }
+
   .logo {
     margin-right: 50px;
   }
 
   .logo-small {
-    display: none;
-  }
-  @media (max-width: 560px) {
-    .logo-small {
-      display: block;
-      margin: 0 20px 0 10px;
-    }
-    .logo {
-      display: none;
-    }
+    display: block;
   }
 </style>
 
 <script>
+  import HamburgeMenu from './HamburgerMenu.svelte';
   export let segment;
+
+  let showMenu = false;
 </script>
 
-<nav>
-  <img class="logo" src="logo.svg" alt="Coronavirus" />
-  <img class="logo-small" src="logo-small.svg" alt="Coronavirus" />
+<nav class="hide-mobile">
+  <img class="logo" src="logo.svg" alt="COVID-19-India" />
   <ul>
     <li class:active="{segment === undefined}">
       <a href=".">Offcial</a>
@@ -79,4 +77,10 @@
       <a href="unofficial">Unofficial</a>
     </li>
   </ul>
+</nav>
+
+<nav class="show-mobile">
+  <img class="hamburger" src="hamburger.svg" alt="Menu" on:click="{() => (showMenu = true)}" />
+  <img class="logo-small" src="logo-small.svg" alt="Coronavirus" />
+  <HamburgeMenu bind:show="{showMenu}" {segment} />
 </nav>

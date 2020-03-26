@@ -117,4 +117,14 @@ th {
   .tablesort {
     font-size: 12px;
   }
+  .hide-mobile{
+    display: none !important;
+  }
+}
+
+
+@media (min-width: 561px){
+  .show-mobile{
+    display: none !important;
+  }
 }
