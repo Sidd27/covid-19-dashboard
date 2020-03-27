@@ -138,21 +138,11 @@ th {
 }
 
 .chart-container {
+  margin-top: 2em;
   padding: 15px;
   border: 1px solid rgba(0, 0, 0, 0.0625);
   background-color: #fff;
   width: 48%;
-}
-
-@media (max-width: 992px) {
-  .chart-container {
-    width: 98%;
-    margin: 0;
-  }
-
-  .chart-container+.chart-container {
-    margin-top: 1em;
-  }
 }
 
 .main-data-container {
@@ -169,8 +159,20 @@ th {
 }
 
 .charts {
-  margin-top: 2em;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+@media (max-width: 992px) {
+  .chart-container {
+    width: 98%;
+    margin: 0;
+  }
+
+  .chart-container,
+  .table-container {
+    margin-top: 1em;
+  }
+
 }
