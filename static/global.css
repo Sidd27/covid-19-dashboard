@@ -58,6 +58,10 @@ tr:hover td {
   background-color: #f2f2f2;
 }
 
+td {
+  text-align: center;
+}
+
 th {
   text-align: left;
 }
@@ -175,4 +179,20 @@ th {
     margin-top: 1em;
   }
 
+}
+
+.hospitalized {
+  color: #9c27b0
+}
+
+.recovered {
+  color: #4caf50
+}
+
+.deaths {
+  color: #f44336
+}
+
+.confirmed {
+  color: #2196f3;
 }

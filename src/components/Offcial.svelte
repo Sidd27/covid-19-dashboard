@@ -15,6 +15,7 @@
   let currentData;
   let diffData;
   let tableData;
+  let prevTableDataMap;
   let isMobile = false;
   let loading = false;
 
@@ -47,13 +48,22 @@
       .then(res => {
         if (res.success && res.data) {
           totalData = res.data;
+
           const dataLen = totalData.length;
           currentData = totalData[dataLen - 1];
           currentData.summary.active = getActive(currentData);
+
           const previousData = res.data[dataLen - 2];
           previousData.summary.active = getActive(previousData);
+
           diffData = getDiff(currentData, previousData);
           tableData = getTableData(currentData.regional);
+
+          const prevTableData = getTableData(previousData.regional);
+          prevTableDataMap = prevTableData.reduce((inital, current) => {
+            inital[current.loc] = current;
+            return inital;
+          }, {});
         }
         loading = false;
       });
@@ -98,41 +108,59 @@
     <RcvrdVsDeathChart rawData="{totalData}" />
   </div>
   <div class="table-container">
-    {#if isMobile}
-      <TableSort items="{tableData}">
-        <tr slot="thead">
+    <TableSort items="{tableData}">
+      <tr slot="thead">
+        {#if isMobile}
           <th data-sort="loc">State / UT</th>
           <th data-sort="total" data-sort-initial="descending">CNFMRD</th>
           <th data-sort="active">ACTV</th>
           <th data-sort="discharged">RCVRD</th>
           <th data-sort="deaths">DCSD</th>
-        </tr>
-        <tr slot="tbody" let:item="{data}">
-          <td class="state">{data.loc}</td>
-          <td>{data.total}</td>
-          <td>{data.active}</td>
-          <td>{data.discharged}</td>
-          <td>{data.deaths}</td>
-        </tr>
-      </TableSort>
-    {:else}
-      <TableSort items="{tableData}">
-        <tr slot="thead">
+        {:else}
           <th data-sort="loc">State / UT</th>
           <th data-sort="total" data-sort-initial="descending">Confirmed</th>
           <th data-sort="active">Active</th>
           <th data-sort="discharged">Recovered</th>
           <th data-sort="deaths">Dealths</th>
-        </tr>
-        <tr slot="tbody" let:item="{data}">
-          <td class="state">{data.loc}</td>
-          <td>{data.total}</td>
-          <td>{data.active}</td>
-          <td>{data.discharged}</td>
-          <td>{data.deaths}</td>
-        </tr>
-      </TableSort>
-    {/if}
+        {/if}
+      </tr>
+      <tr slot="tbody" let:item="{data}">
+        <td class="state">{data.loc}</td>
+        <td>
+          {data.total}
+          <br />
+          {#if data.total - prevTableDataMap[data.loc].total !== 0}
+            <small class="confirmed">{data.total - prevTableDataMap[data.loc].total} &Delta;</small>
+          {/if}
+
+        </td>
+        <td>
+          {data.active}
+          <br />
+          {#if data.active - prevTableDataMap[data.loc].active !== 0}
+            <small class="hospitalized">
+              {data.active - prevTableDataMap[data.loc].active} &Delta;
+            </small>
+          {/if}
+        </td>
+        <td>
+          {data.discharged}
+          <br />
+          {#if data.discharged - prevTableDataMap[data.loc].discharged !== 0}
+            <small class="recovered">
+              {data.discharged - prevTableDataMap[data.loc].discharged} &Delta;
+            </small>
+          {/if}
+        </td>
+        <td>
+          {data.deaths}
+          <br />
+          {#if data.deaths - prevTableDataMap[data.loc].deaths !== 0}
+            <small class="deaths">{data.deaths - prevTableDataMap[data.loc].deaths} &Delta;</small>
+          {/if}
+        </td>
+      </tr>
+    </TableSort>
   </div>
 {:else if loading}
   <PageLoader />

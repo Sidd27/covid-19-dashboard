@@ -73,41 +73,30 @@
     <AgeChart />
   </div>
   <div class="table-container">
-    {#if isMobile}
-      <TableSort items="{currentData.statewise}">
-        <tr slot="thead">
+    <TableSort items="{currentData.statewise}">
+      <tr slot="thead">
+        {#if isMobile}
           <th data-sort="state">State / UT</th>
           <th data-sort="confirmed" data-sort-initial="descending">CNFMRD</th>
           <th data-sort="active">ACTV</th>
           <th data-sort="recovered">RCVRD</th>
           <th data-sort="deaths">DCSD</th>
-        </tr>
-        <tr slot="tbody" let:item="{data}">
-          <td class="state">{data.state}</td>
-          <td>{data.confirmed}</td>
-          <td>{data.active}</td>
-          <td>{data.recovered}</td>
-          <td>{data.deaths}</td>
-        </tr>
-      </TableSort>
-    {:else}
-      <TableSort items="{currentData.statewise}">
-        <tr slot="thead">
+        {:else}
           <th data-sort="state">State / UT</th>
           <th data-sort="confirmed" data-sort-initial="descending">Confirmed</th>
           <th data-sort="active">Active</th>
           <th data-sort="recovered">Recovered</th>
           <th data-sort="deaths">Dealths</th>
-        </tr>
-        <tr slot="tbody" let:item="{data}">
-          <td class="state">{data.state}</td>
-          <td>{data.confirmed}</td>
-          <td>{data.active}</td>
-          <td>{data.recovered}</td>
-          <td>{data.deaths}</td>
-        </tr>
-      </TableSort>
-    {/if}
+        {/if}
+      </tr>
+      <tr slot="tbody" let:item="{data}">
+        <td class="state">{data.state}</td>
+        <td>{data.confirmed}</td>
+        <td>{data.active}</td>
+        <td>{data.recovered}</td>
+        <td>{data.deaths}</td>
+      </tr>
+    </TableSort>
   </div>
 {:else if loading}
   <PageLoader />
