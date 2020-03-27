@@ -6,6 +6,7 @@
     background-color: #efefef;
     padding: 10px;
     font-weight: 600;
+    margin-top: 2em;
   }
   a {
     margin: 0 10px;
