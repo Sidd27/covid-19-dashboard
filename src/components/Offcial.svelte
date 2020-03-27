@@ -55,7 +55,6 @@
           previousData.summary.active = getActive(previousData);
           diffData = getDiff(currentData, previousData);
           tableData = getTableData(currentData.regional);
-          console.log(totalData);
         }
         loading = false;
       });
