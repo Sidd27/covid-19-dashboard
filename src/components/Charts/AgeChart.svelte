@@ -140,7 +140,7 @@
 <div class="chart-container">
   <h3 class="chart-title">
     Age Demography Chart
-    <small>(For data we have age)</small>
+    <small>(we have partial age data)</small>
   </h3>
   <canvas bind:this="{ageChartEle}"></canvas>
 </div>

@@ -8,18 +8,18 @@
 
   function getChartData() {
     const labelArray = [];
-    const LocalDataSet = [];
-    const ForeignDataSet = [];
+    const recovered = [];
+    const death = [];
     rawData.forEach(item => {
       const date = new Date(item.day);
       labelArray.push(`${date.getDate()}/${date.getMonth() + 1}`);
-      ForeignDataSet.push(item.summary.confirmedCasesForeign);
-      LocalDataSet.push(item.summary.confirmedCasesIndian);
+      death.push(item.summary.deaths);
+      recovered.push(item.summary.discharged);
     });
     return {
       labelArray,
-      LocalDataSet,
-      ForeignDataSet
+      recovered,
+      death
     };
   }
 
@@ -32,16 +32,16 @@
         labels: data.labelArray,
         datasets: [
           {
-            label: 'Indian',
+            label: 'RECOVERED',
             fill: false,
-            borderColor: 'rgb(255,111,0)',
-            data: data.LocalDataSet
+            borderColor: 'rgb(76, 175, 80)',
+            data: data.recovered
           },
           {
-            label: 'Foreigner',
+            label: 'DECEASED',
             fill: false,
-            borderColor: 'rgb(1,87,155)',
-            data: data.ForeignDataSet
+            borderColor: 'rgb(244, 67, 54)',
+            data: data.death
           }
         ]
       },
@@ -56,6 +56,6 @@
 </script>
 
 <div class="chart-container">
-  <h3 class="chart-title">Indian Vs Foreigner</h3>
+  <h3 class="chart-title">Recovered Vs Deceased</h3>
   <canvas bind:this="{chartElem}"></canvas>
 </div>

@@ -9,6 +9,7 @@
   // Chart Imports
   import TotalChart from './Charts/TotalCaseChart.svelte';
   import LocVsForiegnChart from './Charts/LocalVsForeignChart.svelte';
+  import RcvrdVsDeathChart from './Charts/RvrdVsDeadChart.svelte';
 
   let totalData;
   let currentData;
@@ -54,6 +55,7 @@
           previousData.summary.active = getActive(previousData);
           diffData = getDiff(currentData, previousData);
           tableData = getTableData(currentData.regional);
+          console.log(totalData);
         }
         loading = false;
       });
@@ -95,6 +97,7 @@
   <div class="charts">
     <TotalChart rawData="{totalData}" />
     <LocVsForiegnChart rawData="{totalData}" />
+    <RcvrdVsDeathChart rawData="{totalData}" />
   </div>
   <div class="table-container">
     {#if isMobile}
