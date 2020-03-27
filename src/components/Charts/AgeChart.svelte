@@ -85,17 +85,17 @@
         datasets: [
           {
             label: 'Hospitalized',
-            backgroundColor: 'rgb(2, 119, 189)',
+            backgroundColor: 'rgb(255,235,59)',
             data: data.hospitalized
           },
           {
             label: 'Recovered',
-            backgroundColor: 'rgb(46, 125, 50)',
+            backgroundColor: 'rgb(76, 175, 80)',
             data: data.recovered
           },
           {
             label: 'Deceased',
-            backgroundColor: 'rgb(198, 40, 40)',
+            backgroundColor: 'rgb(244, 67, 54)',
             data: data.deceased
           }
         ]

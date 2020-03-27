@@ -13,7 +13,6 @@
 
   let totalData;
   let currentData;
-  let previousData;
   let diffData;
   let tableData;
   let isMobile = false;
@@ -51,7 +50,7 @@
           const dataLen = totalData.length;
           currentData = totalData[dataLen - 1];
           currentData.summary.active = getActive(currentData);
-          previousData = res.data[dataLen - 2];
+          const previousData = res.data[dataLen - 2];
           previousData.summary.active = getActive(previousData);
           diffData = getDiff(currentData, previousData);
           tableData = getTableData(currentData.regional);
