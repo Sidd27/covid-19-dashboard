@@ -13,10 +13,6 @@
     padding: 0 20px;
   }
 
-  .nav-container {
-    display: flex;
-    align-items: center;
-  }
   ul {
     margin: 0;
     padding: 0;
@@ -36,7 +32,7 @@
   }
 
   li.active {
-    border-bottom: 2px solid rgb(255, 62, 0);
+    border-bottom: 2px solid rgb(151, 45, 21);
   }
 
   a {
@@ -55,7 +51,7 @@
   }
 
   .logo {
-    margin-right: 50px;
+    margin-right: 20px;
   }
 
   .logo-small {
@@ -85,22 +81,21 @@
   let showMenu = false;
 </script>
 
-<nav>
-  <div class="nav-container hide-mobile">
-    <img class="logo" src="logo.svg" alt="COVID-19-India" />
-    <ul>
-      <li class:active="{segment === undefined}">
-        <a href=".">Offcial</a>
-      </li>
-      <li class:active="{segment === 'unofficial'}">
-        <a href="unofficial">Unofficial</a>
-      </li>
-    </ul>
-  </div>
-  <div class="nav-container show-mobile">
-    <img class="hamburger" src="hamburger.svg" alt="Menu" on:click="{() => (showMenu = true)}" />
-    <img class="logo-small" src="logo-small.svg" alt="Coronavirus" />
-    <HamburgeMenu bind:show="{showMenu}" {segment} />
-  </div>
+<nav class="hide-mobile">
+  <img class="logo" src="logo.svg" alt="COVID-19-India" />
+  <ul>
+    <li class:active="{segment === undefined}">
+      <a href=".">Offcial</a>
+    </li>
+    <li class:active="{segment === 'unofficial'}">
+      <a href="unofficial">Unofficial</a>
+    </li>
+  </ul>
+  <a class="helpline" href="tel:+911123978046">Call Helpline</a>
+</nav>
+<nav class="show-mobile">
+  <img class="hamburger" src="hamburger.svg" alt="Menu" on:click="{() => (showMenu = true)}" />
+  <img class="logo-small" src="logo-small.svg" alt="Coronavirus" />
+  <HamburgeMenu bind:show="{showMenu}" {segment} />
   <a class="helpline" href="tel:+911123978046">Call Helpline</a>
 </nav>

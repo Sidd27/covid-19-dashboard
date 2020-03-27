@@ -3,7 +3,7 @@
 	"theme_color": "#333333",
 	"name": "COVID-19",
 	"short_name": "COVID",
-	"display": "fullscreen",
+	"display": "standalone",
 	"start_url": "/",
 	"icons": [
 		{

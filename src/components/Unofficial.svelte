@@ -1,23 +1,10 @@
-<style>
-  .main-data-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-  }
-
-  .table-container {
-    margin: 2em 0;
-    display: flex;
-    overflow-x: scroll;
-    justify-content: space-evenly;
-  }
-</style>
-
 <script>
-  import { onMount } from "svelte";
-  import Box from "../shared/components/Box.svelte";
-  import PageLoader from "../shared/components/PageLoader.svelte";
-  import { TableSort } from "svelte-tablesort";
+  import { onMount } from 'svelte';
+  import Box from '../shared/components/Box.svelte';
+  import PageLoader from '../shared/components/PageLoader.svelte';
+  import { TableSort } from 'svelte-tablesort';
+
+  import AgeChart from './Charts/AgeChart.svelte';
 
   let currentData;
   let previousData;
@@ -36,9 +23,7 @@
 
   async function getData() {
     loading = true;
-    await fetch(
-      `https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise/history`
-    )
+    await fetch(`https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise/history`)
       .then(r => r.json())
       .then(res => {
         if (res.success && res.data) {
@@ -84,6 +69,9 @@
       diff="{diffData.deaths}"
     />
   </div>
+  <div class="charts">
+    <AgeChart />
+  </div>
   <div class="table-container">
     {#if isMobile}
       <TableSort items="{currentData.statewise}">
@@ -106,9 +94,7 @@
       <TableSort items="{currentData.statewise}">
         <tr slot="thead">
           <th data-sort="state">State / UT</th>
-          <th data-sort="confirmed" data-sort-initial="descending">
-            Confirmed
-          </th>
+          <th data-sort="confirmed" data-sort-initial="descending">Confirmed</th>
           <th data-sort="active">Active</th>
           <th data-sort="recovered">Recovered</th>
           <th data-sort="deaths">Dealths</th>
