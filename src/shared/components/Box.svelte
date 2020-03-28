@@ -3,7 +3,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #4caf50;
   }
   .box-title {
     margin-bottom: 10px;
@@ -26,20 +25,11 @@
     width: 22%;
     background-color: #fff;
   }
-  .deaths {
-    color: #f44336;
-  }
   .deaths .box-badge {
     background-color: #ffebee;
   }
-  .confirmed {
-    color: #2196f3;
-  }
   .confirmed .box-badge {
     background-color: #e3f2fd;
-  }
-  .recovered {
-    color: #4caf50;
   }
   .recovered .box-badge {
     background-color: #e8f5e9;

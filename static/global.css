@@ -58,6 +58,10 @@ tr:hover td {
   background-color: #f2f2f2;
 }
 
+td {
+  text-align: center;
+}
+
 th {
   text-align: left;
 }
@@ -109,11 +113,6 @@ th {
   }
 }
 
-@media (max-width: 992px) {
-  .tablesort {
-    width: 98%;
-  }
-}
 
 @media (max-width: 560px) {
   .tablesort {
@@ -164,6 +163,29 @@ th {
   justify-content: space-around;
 }
 
+.hospitalized {
+  color: #9c27b0
+}
+
+.recovered {
+  color: #4caf50
+}
+
+.deaths {
+  color: #f44336
+}
+
+.confirmed {
+  color: #2196f3;
+}
+
+.table-legends {
+  width: 70%;
+  line-height: 1;
+  margin: 5px auto 0;
+  text-align: right;
+}
+
 @media (max-width: 992px) {
   .chart-container {
     width: 98%;
@@ -173,6 +195,10 @@ th {
   .chart-container,
   .table-container {
     margin-top: 1em;
+  }
+
+  .tablesort,.table-legends {
+    width: 98%;
   }
 
 }
