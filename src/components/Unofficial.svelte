@@ -5,10 +5,12 @@
   import { TableSort } from 'svelte-tablesort';
 
   import AgeChart from './Charts/AgeChart.svelte';
+  import GenderChart from './Charts/GenderChart.svelte';
 
   let currentData;
   let prevTableDataMap;
   let diffData;
+  let rawPaitentData;
   let isMobile = false;
   let loading = false;
 
@@ -40,8 +42,19 @@
       });
   }
 
+  async function getRawPatientData() {
+    await fetch(`https://api.rootnet.in/covid19-in/unofficial/covid19india.org`)
+      .then(r => r.json())
+      .then(res => {
+        if (res.success && res.data) {
+          rawPaitentData = res.data.rawPatientData;
+        }
+      });
+  }
+
   onMount(() => {
     getData();
+    getRawPatientData();
     isMobile = window.innerWidth < 560;
   });
 </script>
@@ -74,7 +87,10 @@
     />
   </div>
   <div class="charts">
-    <AgeChart />
+    {#if rawPaitentData}
+      <AgeChart rawData="{rawPaitentData}" />
+      <GenderChart rawData="{rawPaitentData}" />
+    {/if}
   </div>
   <div class="table-container">
     <TableSort items="{currentData.statewise}">
@@ -135,7 +151,10 @@
     </TableSort>
   </div>
   <p class="table-legends">
-    <small>&Delta; is change in Data</small>
+    <small>&Delta; = Change in data from Previous day</small>
+  </p>
+  <p class="table-legends">
+    <small>** = Based on partial data</small>
   </p>
   <p class="table-legends">
     <small>All coulums are sortable</small>

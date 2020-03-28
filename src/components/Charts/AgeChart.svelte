@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Chart from 'chart.js';
 
+  export let rawData;
   let ageChartEle;
 
   function getAgeGroup(age) {
@@ -63,8 +64,9 @@
     ];
   }
 
-  function getChartData(data) {
-    const statusAgeObject = data.map(addAgeGroup).reduce(countAgeGroup, {});
+  function getChartData() {
+    const dataWithAge = rawData.filter(e => e.ageEstimate);
+    const statusAgeObject = dataWithAge.map(addAgeGroup).reduce(countAgeGroup, {});
     const recovered = createArrayData(statusAgeObject.Recovered);
     const deceased = createArrayData(statusAgeObject.Deceased);
     const hospitalized = createArrayData(statusAgeObject.Hospitalized);
@@ -75,9 +77,9 @@
     };
   }
 
-  function createChart(rawData) {
+  function createChart() {
     const ctx = ageChartEle.getContext('2d');
-    const data = getChartData(rawData);
+    const data = getChartData();
     const chart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -122,25 +124,15 @@
     });
   }
 
-  async function getData() {
-    await fetch(`https://api.rootnet.in/covid19-in/unofficial/covid19india.org`)
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) {
-          const rawPaitentDataWithAge = res.data.rawPatientData.filter(e => e.ageEstimate);
-          createChart(rawPaitentDataWithAge);
-        }
-      });
-  }
   onMount(() => {
-    getData();
+    createChart();
   });
 </script>
 
 <div class="chart-container">
   <h3 class="chart-title">
     Age Demography Chart
-    <small>(we have partial age data)</small>
+    <sup>**</sup>
   </h3>
   <canvas bind:this="{ageChartEle}"></canvas>
 </div>
