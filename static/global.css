@@ -182,6 +182,7 @@ th {
 .table-legends {
   width: 70%;
   line-height: 1;
+  font-weight: 600;
   margin: 5px auto 0;
   text-align: right;
 }
