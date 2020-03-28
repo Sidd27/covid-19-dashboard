@@ -52,10 +52,8 @@
           const dataLen = totalData.length;
           currentData = totalData[dataLen - 1];
           currentData.summary.active = getActive(currentData);
-
           const previousData = res.data[dataLen - 2];
           previousData.summary.active = getActive(previousData);
-
           diffData = getDiff(currentData, previousData);
           tableData = getTableData(currentData.regional);
 
@@ -162,6 +160,12 @@
       </tr>
     </TableSort>
   </div>
+  <p class="table-legends">
+    <small>&Delta; is change in Data</small>
+  </p>
+  <p class="table-legends">
+    <small>All coulums are sortable</small>
+  </p>
 {:else if loading}
   <PageLoader />
 {/if}

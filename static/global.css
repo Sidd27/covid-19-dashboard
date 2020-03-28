@@ -113,11 +113,6 @@ th {
   }
 }
 
-@media (max-width: 992px) {
-  .tablesort {
-    width: 98%;
-  }
-}
 
 @media (max-width: 560px) {
   .tablesort {
@@ -168,19 +163,6 @@ th {
   justify-content: space-around;
 }
 
-@media (max-width: 992px) {
-  .chart-container {
-    width: 98%;
-    margin: 0;
-  }
-
-  .chart-container,
-  .table-container {
-    margin-top: 1em;
-  }
-
-}
-
 .hospitalized {
   color: #9c27b0
 }
@@ -195,4 +177,28 @@ th {
 
 .confirmed {
   color: #2196f3;
+}
+
+.table-legends {
+  width: 70%;
+  line-height: 1;
+  margin: 5px auto 0;
+  text-align: right;
+}
+
+@media (max-width: 992px) {
+  .chart-container {
+    width: 98%;
+    margin: 0;
+  }
+
+  .chart-container,
+  .table-container {
+    margin-top: 1em;
+  }
+
+  .tablesort,.table-legends {
+    width: 98%;
+  }
+
 }
