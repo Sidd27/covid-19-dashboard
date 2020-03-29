@@ -69,6 +69,7 @@ th {
 .state {
   font-weight: 600;
   color: #72777a;
+  text-align: left;
 }
 
 .sortable {

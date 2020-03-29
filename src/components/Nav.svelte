@@ -85,10 +85,10 @@
   <img class="logo" src="logo.svg" alt="COVID-19-India" />
   <ul>
     <li class:active="{segment === undefined}">
-      <a href=".">Offcial</a>
+      <a href=".">Unofficial</a>
     </li>
-    <li class:active="{segment === 'unofficial'}">
-      <a href="unofficial">Unofficial</a>
+    <li class:active="{segment === 'official'}">
+      <a href="official">official</a>
     </li>
   </ul>
   <a class="helpline" href="tel:+911123978046">Call Helpline</a>
