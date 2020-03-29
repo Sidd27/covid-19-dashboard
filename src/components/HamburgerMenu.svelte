@@ -82,15 +82,15 @@
       <a href="javascript:void(0)" class="closebtn" on:click="{closeNav}">&times;</a>
     </div>
     <a class="menu-item" class:active="{segment === undefined}" href="." on:click="{closeNav}">
-      Offcial
+      Unofficial
     </a>
     <a
       class="menu-item"
-      class:active="{segment === 'unofficial'}"
-      href="unofficial"
+      class:active="{segment === 'official'}"
+      href="official"
       on:click="{closeNav}"
     >
-      Unofficial
+      Official
     </a>
   </aside>
 {/if}
