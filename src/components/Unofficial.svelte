@@ -102,7 +102,7 @@
           <th data-sort="recovered">RCVRD</th>
           <th data-sort="deaths">DCSD</th>
         {:else}
-          <th style="text-align:left" data-sort="state">State / UT</th>
+          <th data-sort="state">State / UT</th>
           <th data-sort="confirmed" data-sort-initial="descending">Confirmed</th>
           <th data-sort="active">Active</th>
           <th data-sort="recovered">Recovered</th>

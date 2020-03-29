@@ -88,7 +88,7 @@
       <a href=".">Unofficial</a>
     </li>
     <li class:active="{segment === 'official'}">
-      <a href="official">official</a>
+      <a href="official">Official</a>
     </li>
   </ul>
   <a class="helpline" href="tel:+911123978046">Call Helpline</a>
