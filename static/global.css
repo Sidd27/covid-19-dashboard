@@ -58,18 +58,17 @@ tr:hover td {
   background-color: #f2f2f2;
 }
 
-td {
+td:not(:first-child){
   text-align: center;
 }
 
-th {
-  text-align: center;
+th:first-child{
+text-align: left;
 }
 
 .state {
   font-weight: 600;
   color: #72777a;
-  text-align: left;
 }
 
 .sortable {
