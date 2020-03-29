@@ -7,6 +7,7 @@
   import Box from '../shared/components/Box.svelte';
   import PageLoader from '../shared/components/PageLoader.svelte';
   import DashboardTitle from '../shared/components/DashboardTitle.svelte';
+  import Table from '../shared/components/Table.svelte';
   // Chart Imports
   import TotalChart from './Charts/TotalCaseChart.svelte';
   import LocVsForiegnChart from './Charts/LocalVsForeignChart.svelte';
@@ -17,8 +18,7 @@
   let currentData;
   let diffData;
   let tableData;
-  let prevTableDataMap;
-  let isMobile = false;
+  let yesterdayTableData;
   let loading = false;
   let updatedDate;
 
@@ -33,8 +33,10 @@
 
   function getTableData(rawData) {
     const dataArray = rawData.map(ele => {
-      ele.total = ele.confirmedCasesIndian + ele.confirmedCasesForeign;
-      ele.active = ele.total - (ele.discharged + ele.deaths);
+      ele.confirmed = ele.confirmedCasesIndian + ele.confirmedCasesForeign;
+      ele.active = ele.confirmed - (ele.discharged + ele.deaths);
+      ele.state = ele.loc;
+      ele.recovered = ele.discharged;
       return ele;
     });
     return dataArray;
@@ -59,12 +61,7 @@
           previousData.summary.active = getActive(previousData);
           diffData = getDiff(currentData, previousData);
           tableData = getTableData(currentData.regional);
-
-          const prevTableData = getTableData(previousData.regional);
-          prevTableDataMap = prevTableData.reduce((inital, current) => {
-            inital[current.loc] = current;
-            return inital;
-          }, {});
+          yesterdayTableData = getTableData(previousData.regional);
           updatedDate = res.lastOriginUpdate;
         }
         loading = false;
@@ -73,7 +70,6 @@
 
   onMount(() => {
     getData();
-    isMobile = window.innerWidth < 560;
   });
 </script>
 
@@ -85,24 +81,28 @@
       count="{currentData.summary.total}"
       type="confirmed"
       diff="{diffData.confirmed}"
+      day="{currentData.day}"
     />
     <Box
       label="Total Active"
       count="{currentData.summary.active}"
       type="active"
       diff="{diffData.active}"
+      day="{currentData.day}"
     />
     <Box
       label="Total Recoverd"
       count="{currentData.summary.discharged}"
       type="recovered"
       diff="{diffData.recovered}"
+      day="{currentData.day}"
     />
     <Box
       label="Total Deaths"
       count="{currentData.summary.deaths}"
       type="deaths"
       diff="{diffData.deaths}"
+      day="{currentData.day}"
     />
   </div>
   <div class="charts">
@@ -112,59 +112,7 @@
     <DailyChart rawData="{totalData}" />
   </div>
   <div class="table-container">
-    <TableSort items="{tableData}">
-      <tr slot="thead">
-        {#if isMobile}
-          <th data-sort="loc">State / UT</th>
-          <th data-sort="total" data-sort-initial="descending">CNFMRD</th>
-          <th data-sort="active">ACTV</th>
-          <th data-sort="discharged">RCVRD</th>
-          <th data-sort="deaths">DCSD</th>
-        {:else}
-          <th data-sort="loc">State / UT</th>
-          <th data-sort="total" data-sort-initial="descending">Confirmed</th>
-          <th data-sort="active">Active</th>
-          <th data-sort="discharged">Recovered</th>
-          <th data-sort="deaths">Dealths</th>
-        {/if}
-      </tr>
-      <tr slot="tbody" let:item="{data}">
-        <td class="state">{data.loc}</td>
-        <td>
-          {data.total}
-          <br />
-          {#if data.total - prevTableDataMap[data.loc].total !== 0}
-            <small class="confirmed">{data.total - prevTableDataMap[data.loc].total} &Delta;</small>
-          {/if}
-
-        </td>
-        <td>
-          {data.active}
-          <br />
-          {#if data.active - prevTableDataMap[data.loc].active !== 0}
-            <small class="hospitalized">
-              {data.active - prevTableDataMap[data.loc].active} &Delta;
-            </small>
-          {/if}
-        </td>
-        <td>
-          {data.discharged}
-          <br />
-          {#if data.discharged - prevTableDataMap[data.loc].discharged !== 0}
-            <small class="recovered">
-              {data.discharged - prevTableDataMap[data.loc].discharged} &Delta;
-            </small>
-          {/if}
-        </td>
-        <td>
-          {data.deaths}
-          <br />
-          {#if data.deaths - prevTableDataMap[data.loc].deaths !== 0}
-            <small class="deaths">{data.deaths - prevTableDataMap[data.loc].deaths} &Delta;</small>
-          {/if}
-        </td>
-      </tr>
-    </TableSort>
+    <Table {tableData} {yesterdayTableData} day="{currentData.day}" />
   </div>
   <p class="table-legends">
     <small>&Delta; is change in Data</small>
