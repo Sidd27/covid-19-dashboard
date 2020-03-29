@@ -1,9 +1,12 @@
 <script>
+  // 3rd Party Imports
   import { onMount } from 'svelte';
+  import { TableSort } from 'svelte-tablesort';
+  // Shared Resources
   import Box from '../shared/components/Box.svelte';
   import PageLoader from '../shared/components/PageLoader.svelte';
-  import { TableSort } from 'svelte-tablesort';
-
+  import DashboardTitle from '../shared/components/DashboardTitle.svelte';
+  // Chart Imports
   import AgeChart from './Charts/AgeChart.svelte';
   import GenderChart from './Charts/GenderChart.svelte';
 
@@ -13,6 +16,7 @@
   let rawPaitentData;
   let isMobile = false;
   let loading = false;
+  let updatedDate;
 
   function getDiff(current, prev) {
     return {
@@ -31,12 +35,15 @@
         if (res.success && res.data) {
           const historyLen = res.data.history.length;
           currentData = res.data.history[historyLen - 1];
+
           const previousData = res.data.history[historyLen - 2];
           diffData = getDiff(currentData, previousData);
+
           prevTableDataMap = previousData.statewise.reduce((initial, current) => {
             initial[current.state] = current;
             return initial;
           }, {});
+          updatedDate = res.data.lastRefreshed;
         }
         loading = false;
       });
@@ -59,6 +66,7 @@
   });
 </script>
 
+<DashboardTitle {updatedDate} />
 {#if currentData}
   <div class="main-data-container">
     <Box

@@ -6,6 +6,7 @@
   // Shared Resources
   import Box from '../shared/components/Box.svelte';
   import PageLoader from '../shared/components/PageLoader.svelte';
+  import DashboardTitle from '../shared/components/DashboardTitle.svelte';
   // Chart Imports
   import TotalChart from './Charts/TotalCaseChart.svelte';
   import LocVsForiegnChart from './Charts/LocalVsForeignChart.svelte';
@@ -18,6 +19,7 @@
   let prevTableDataMap;
   let isMobile = false;
   let loading = false;
+  let updatedDate;
 
   function getDiff(current, prev) {
     return {
@@ -62,6 +64,7 @@
             inital[current.loc] = current;
             return inital;
           }, {});
+          updatedDate = res.lastRefreshed;
         }
         loading = false;
       });
@@ -73,6 +76,7 @@
   });
 </script>
 
+<DashboardTitle {updatedDate} />
 {#if currentData}
   <div class="main-data-container">
     <Box

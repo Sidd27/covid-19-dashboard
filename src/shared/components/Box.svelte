@@ -22,7 +22,7 @@
     padding: 20px;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.0625);
-    width: 22%;
+    width: 23.5%;
     background-color: #fff;
   }
   .deaths .box-badge {
@@ -42,12 +42,12 @@
   }
   @media (max-width: 992px) {
     .box {
-      width: 48%;
+      width: 49%;
     }
   }
   @media (max-width: 560px) {
     .box {
-      width: 98%;
+      width: 100%;
     }
   }
 </style>

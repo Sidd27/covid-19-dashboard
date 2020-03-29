@@ -50,9 +50,6 @@
 </script>
 
 <div class="chart-container">
-  <h3 class="chart-title">
-    Male Vs Female Confrimed Cases
-    <sup>**</sup>
-  </h3>
+  <h3 class="chart-title">Male Vs Female Confrimed Cases</h3>
   <canvas bind:this="{chartElem}"></canvas>
 </div>
