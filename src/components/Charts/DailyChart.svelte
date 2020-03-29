@@ -8,11 +8,13 @@
   function getChartData() {
     const labelArray = [];
     const dataSet = [];
-    rawData.forEach(element => {
-      const date = new Date(element.day);
-
-      labelArray.push(`${date.getDate()}/${date.getMonth() + 1}`);
-      dataSet.push(element.summary.total);
+    rawData.forEach((element, index) => {
+      if (index > 0) {
+        const date = new Date(element.day);
+        labelArray.push(`${date.getDate()}/${date.getMonth() + 1}`);
+        const newData = element.summary.total - rawData[index - 1].summary.total;
+        dataSet.push(newData);
+      }
     });
     return {
       labelArray,
@@ -31,7 +33,8 @@
           {
             borderColor: 'rgb(33,150,243)',
             backgroundColor: 'rgba(33,150,243, 0.2)',
-            data: confirmedData.dataSet
+            data: confirmedData.dataSet,
+            lineTension: 0.2
           }
         ]
       },
@@ -40,7 +43,9 @@
           mode: 'index',
           intersect: false
         },
-        legend: { display: false }
+        legend: {
+          display: false
+        }
       }
     });
   }
@@ -51,6 +56,6 @@
 </script>
 
 <div class="chart-container">
-  <h3 class="chart-title">Total Confirmed Case</h3>
+  <h3 class="chart-title">Daily Confirmed Case</h3>
   <canvas bind:this="{chartElem}"></canvas>
 </div>

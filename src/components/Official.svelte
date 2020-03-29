@@ -11,6 +11,7 @@
   import TotalChart from './Charts/TotalCaseChart.svelte';
   import LocVsForiegnChart from './Charts/LocalVsForeignChart.svelte';
   import RcvrdVsDeathChart from './Charts/RvrdVsDeadChart.svelte';
+  import DailyChart from './Charts/DailyChart.svelte';
 
   let totalData;
   let currentData;
@@ -64,7 +65,7 @@
             inital[current.loc] = current;
             return inital;
           }, {});
-          updatedDate = res.lastRefreshed;
+          updatedDate = res.lastOriginUpdate;
         }
         loading = false;
       });
@@ -108,6 +109,7 @@
     <TotalChart rawData="{totalData}" />
     <LocVsForiegnChart rawData="{totalData}" />
     <RcvrdVsDeathChart rawData="{totalData}" />
+    <DailyChart rawData="{totalData}" />
   </div>
   <div class="table-container">
     <TableSort items="{tableData}">

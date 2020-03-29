@@ -32,7 +32,8 @@
         datasets: [
           {
             data: [data.male, data.female],
-            backgroundColor: ['rgb(137, 240, 255)', 'rgb(231, 100, 134)']
+            backgroundColor: ['rgba(137, 240, 255, 0.4)', 'rgba(231, 100, 134, 0.4)'],
+            borderColor: ['rgb(137, 240, 255)', 'rgb(231, 100, 134)']
           }
         ]
       },
