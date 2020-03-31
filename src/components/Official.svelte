@@ -111,15 +111,9 @@
     <RcvrdVsDeathChart rawData="{totalData}" />
     <DailyChart rawData="{totalData}" />
   </div>
-  <div class="table-container">
+  <div class="table-container mt-container">
     <Table {tableData} {yesterdayTableData} day="{currentData.day}" />
   </div>
-  <p class="table-legends">
-    <small>&Delta; is change in Data</small>
-  </p>
-  <p class="table-legends">
-    <small>All coulums are sortable</small>
-  </p>
 {:else if loading}
   <PageLoader />
 {/if}

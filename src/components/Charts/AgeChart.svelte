@@ -135,10 +135,13 @@
   });
 </script>
 
-<div class="chart-container">
+<div class="chart-container mt-container">
   <h3 class="chart-title">
     Age Demography Chart
     <sup>**</sup>
   </h3>
   <canvas bind:this="{ageChartEle}"></canvas>
+  <p class="spl-legends">
+    <small>** = Based on partial data</small>
+  </p>
 </div>

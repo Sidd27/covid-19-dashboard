@@ -1,3 +1,45 @@
+<style>
+  .cards-container {
+    width: 35%;
+  }
+
+  .card {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.0625);
+    border-radius: 5px;
+  }
+  .card-title {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+    padding: 10px 20px;
+  }
+
+  .card-body {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .card-body-title {
+    font-size: 24px;
+  }
+
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .card-item {
+    font-size: 18px;
+  }
+
+  @media (max-width: 992px) {
+    .cards-container {
+      width: 100%;
+    }
+  }
+</style>
+
 <script>
   // 3rd Party Imports
   import { onMount } from 'svelte';
@@ -18,6 +60,7 @@
   let previousData;
   let loading = false;
   let updatedDate;
+  let totalOutcome;
 
   function getDiff(current, prev) {
     return {
@@ -28,6 +71,10 @@
     };
   }
 
+  function calculatePercentage(num, total) {
+    return ((num / total) * 100).toFixed(2);
+  }
+
   async function getData() {
     loading = true;
     await fetch(`https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise/history`)
@@ -36,7 +83,7 @@
         if (res.success && res.data) {
           const historyLen = res.data.history.length;
           currentData = res.data.history[historyLen - 1];
-
+          totalOutcome = currentData.total.recovered + currentData.total.deaths;
           previousData = res.data.history[historyLen - 2];
           diffData = getDiff(currentData, previousData);
 
@@ -100,7 +147,34 @@
       <GenderChart rawData="{rawPaitentData}" />
     {/if}
   </div>
-  <div class="table-container">
+  <div class="cards-container mt-container">
+    <div class="card">
+      <div class="card-title">Outcome Analysis</div>
+      <div class="card-body">
+        <small>Cases which have outcome / closed</small>
+        <div class="card-body-title">{totalOutcome}</div>
+        <div class="card-content">
+          <div>
+            <small>Recovered / Discharged</small>
+            <div class="card-item recovered">
+              {currentData.total.recovered} (
+              <strong>{calculatePercentage(currentData.total.recovered, totalOutcome)}%</strong>
+              )
+            </div>
+          </div>
+          <div>
+            <small>Deaths / Deceased</small>
+            <div class="card-item deaths">
+              {currentData.total.deaths} (
+              <strong>{calculatePercentage(currentData.total.deaths, totalOutcome)}%</strong>
+              )
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-container mt-container">
     <Table
       tableData="{currentData.statewise}"
       yesterdayTableData="{previousData.statewise}"
@@ -108,13 +182,7 @@
     />
   </div>
   <p class="table-legends">
-    <small>&Delta; = Change in data from Previous day</small>
-  </p>
-  <p class="table-legends">
     <small>** = Based on partial data</small>
-  </p>
-  <p class="table-legends">
-    <small>All coulums are sortable</small>
   </p>
 {:else if loading}
   <PageLoader />

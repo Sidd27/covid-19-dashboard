@@ -55,7 +55,7 @@
   });
 </script>
 
-<div class="chart-container">
+<div class="chart-container mt-container">
   <h3 class="chart-title">Indian Vs Foreigner</h3>
   <canvas bind:this="{chartElem}"></canvas>
 </div>

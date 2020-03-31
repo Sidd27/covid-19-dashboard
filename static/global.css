@@ -32,7 +32,7 @@ a {
 }
 
 .tablesort {
-  width: 70%;
+  width: 100%;
 }
 
 .tablesort,
@@ -45,16 +45,20 @@ th {
   background-color: #ffffff;
 }
 
-tr:hover td {
-  background-color: #f2f2f2;
-}
-
 td:not(:first-child) {
   text-align: center;
 }
 
 th:first-child {
   text-align: left;
+}
+tr:nth-child(even) td {
+  background-color: #f6f6f6;
+}
+
+th {
+  padding-right: 30px;
+  white-space: nowrap;
 }
 
 .state {
@@ -66,42 +70,40 @@ th:first-child {
   position: relative;
 }
 
-@media (min-width: 560px) {
-  .sortable::before {
-    background-image: url("sort.svg");
-    background-size: 10px 20px;
-    background-repeat: no-repeat;
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 15px;
-    right: 5px;
-    z-index: 1;
-  }
+.sortable::before {
+  background-image: url("sort.svg");
+  background-size: 10px 20px;
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  right: 5px;
+  z-index: 1;
+}
 
-  .descending::before {
-    background-image: url("down.svg");
-    background-size: 10px 20px;
-    background-repeat: no-repeat;
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 15px;
-    right: 5px;
-    z-index: 1;
-  }
+.descending::before {
+  background-image: url("down.svg");
+  background-size: 10px 20px;
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  right: 5px;
+  z-index: 1;
+}
 
-  .ascending::before {
-    background-image: url("up.svg");
-    background-size: 10px 20px;
-    background-repeat: no-repeat;
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 15px;
-    right: 5px;
-    z-index: 1;
-  }
+.ascending::before {
+  background-image: url("up.svg");
+  background-size: 10px 20px;
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  right: 5px;
+  z-index: 1;
 }
 
 
@@ -122,13 +124,16 @@ th:first-child {
   }
 }
 
+.mt-container {
+  margin-top: 1.8em;
+}
+
 .chart-title {
   text-align: center;
   margin-bottom: 20px;
 }
 
 .chart-container {
-  margin-top: 1.8em;
   padding: 15px;
   border: 1px solid rgba(0, 0, 0, 0.0625);
   background-color: #fff;
@@ -142,10 +147,8 @@ th:first-child {
 }
 
 .table-container {
-  margin-top: 1.8em;
-  display: flex;
+  width: 100%;
   overflow-x: scroll;
-  justify-content: center;
 }
 
 .charts {
@@ -170,28 +173,21 @@ th:first-child {
   color: #2196f3;
 }
 
-.table-legends {
-  width: 70%;
+.spl-legends {
+  width: 100%;
   line-height: 1;
   font-weight: 600;
-  margin: 5px auto 0;
+  margin: 5px 0 0;
   text-align: right;
 }
 
 @media (max-width: 992px) {
   .chart-container {
     width: 100%;
-    margin: 0;
   }
 
-  .chart-container,
-  .table-container {
+  .mt-container {
     margin-top: 1em;
-  }
-
-  .tablesort,
-  .table-legends {
-    width: 100%;
   }
 
   h1 {

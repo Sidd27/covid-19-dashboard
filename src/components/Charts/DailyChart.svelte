@@ -55,7 +55,7 @@
   });
 </script>
 
-<div class="chart-container">
+<div class="chart-container mt-container">
   <h3 class="chart-title">Daily Confirmed Case</h3>
   <canvas bind:this="{chartElem}"></canvas>
 </div>
