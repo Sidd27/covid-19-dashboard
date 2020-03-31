@@ -62,7 +62,7 @@
           diffData = getDiff(currentData, previousData);
           tableData = getTableData(currentData.regional);
           yesterdayTableData = getTableData(previousData.regional);
-          updatedDate = res.lastOriginUpdate;
+          updatedDate = res.lastRefreshed;
         }
         loading = false;
       });
