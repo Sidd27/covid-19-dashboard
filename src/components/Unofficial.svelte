@@ -181,9 +181,6 @@
       day="{currentData.day}"
     />
   </div>
-  <p class="table-legends">
-    <small>** = Based on partial data</small>
-  </p>
 {:else if loading}
   <PageLoader />
 {/if}
