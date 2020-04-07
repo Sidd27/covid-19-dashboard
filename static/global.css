@@ -177,8 +177,10 @@ th {
   width: 100%;
   line-height: 1;
   font-weight: 600;
-  margin: 5px 0 0;
+  margin: 10px 0 0;
+  padding-top: 5px;
   text-align: right;
+  border-top: 1px dashed #ccc;
 }
 
 @media (max-width: 992px) {

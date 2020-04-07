@@ -51,6 +51,12 @@
 </script>
 
 <div class="chart-container mt-container">
-  <h3 class="chart-title">Male Vs Female Confrimed Cases</h3>
+  <h3 class="chart-title">
+    Male Vs Female Confrimed Cases
+    <sup>**</sup>
+  </h3>
   <canvas bind:this="{chartElem}"></canvas>
+  <p class="spl-legends">
+    <small>** = Based on partial data</small>
+  </p>
 </div>
