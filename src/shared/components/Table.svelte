@@ -13,10 +13,12 @@
 
   tableData = tableData.map(ele => {
     const prevStateData = prevTableDataMap[ele.state];
-    ele.diffConfirmed = ele.confirmed - prevStateData.confirmed;
-    ele.diffActive = ele.active - prevStateData.active;
-    ele.diffRecovered = ele.recovered - prevStateData.recovered;
-    ele.diffDeaths = ele.deaths - prevStateData.deaths;
+    if (prevStateData) {
+      ele.diffConfirmed = ele.confirmed - prevStateData.confirmed;
+      ele.diffActive = ele.active - prevStateData.active;
+      ele.diffRecovered = ele.recovered - prevStateData.recovered;
+      ele.diffDeaths = ele.deaths - prevStateData.deaths;
+    }
     return ele;
   });
 
@@ -54,12 +56,12 @@
   <tr slot="tbody" let:item="{data}">
     <td class="state">{data.state}</td>
     <td>{data.confirmed}</td>
-    <td class="confirmed">{sameDate ? data.diffConfirmed : 0}</td>
+    <td class="confirmed">{sameDate && data.diffConfirmed ? data.diffConfirmed : 0}</td>
     <td>{data.active}</td>
-    <td class="hospitalized">{sameDate ? data.diffActive : 0}</td>
+    <td class="hospitalized">{sameDate && data.diffActive ? data.diffActive : 0}</td>
     <td>{data.recovered}</td>
-    <td class="recovered">{sameDate ? data.diffRecovered : 0}</td>
+    <td class="recovered">{sameDate && data.diffRecovered ? data.diffRecovered : 0}</td>
     <td>{data.deaths}</td>
-    <td class="deaths">{sameDate ? data.diffDeaths : 0}</td>
+    <td class="deaths">{sameDate && data.diffDeaths ? data.diffDeaths : 0}</td>
   </tr>
 </TableSort>
