@@ -92,7 +92,6 @@
         previousData = history[history.length - 1];
         diffData = getDiff(currentData, previousData);
         currentData.data = updatedDate = currentResponse.data.lastRefreshed;
-        console.log(previousData);
       }
       loading = false;
     });
