@@ -59,7 +59,7 @@
   export let diff;
   export let day;
 
-  let sameDate = true;
+  let sameDate;
 
   function checkSameDate() {
     const date = new Date();
@@ -68,7 +68,7 @@
     ).slice(-2)}`;
     sameDate = day === dateKey;
   }
-  // checkSameDate();
+  checkSameDate();
 </script>
 
 <div class="box">
