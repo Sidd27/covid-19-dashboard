@@ -77,20 +77,37 @@
 
   async function getData() {
     loading = true;
-    await fetch(`https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise/history`)
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) {
-          const historyLen = res.data.history.length;
-          currentData = res.data.history[historyLen - 1];
-          totalOutcome = currentData.total.recovered + currentData.total.deaths;
-          previousData = res.data.history[historyLen - 2];
-          diffData = getDiff(currentData, previousData);
+    Promise.all([getStateWiseData(), getHistroyData()]).then(res => {
+      const currentResponse = res[0];
+      const historyResponse = res[1];
+      if (
+        currentResponse.success &&
+        currentResponse.data &&
+        historyResponse.success &&
+        historyResponse.data
+      ) {
+        currentData = currentResponse.data;
+        totalOutcome = currentData.total.recovered + currentData.total.deaths;
+        const history = historyResponse.data.history;
+        previousData = history[history.length - 1];
+        diffData = getDiff(currentData, previousData);
+        currentData.data = updatedDate = currentResponse.data.lastRefreshed;
+        console.log(previousData);
+      }
+      loading = false;
+    });
+  }
 
-          updatedDate = res.data.lastRefreshed;
-        }
-        loading = false;
-      });
+  async function getStateWiseData() {
+    return fetch(`https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise`).then(
+      r => r.json()
+    );
+  }
+
+  async function getHistroyData() {
+    return await fetch(
+      `https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise/history`
+    ).then(r => r.json());
   }
 
   async function getRawPatientData() {
@@ -117,28 +134,28 @@
       count="{currentData.total.confirmed}"
       type="confirmed"
       diff="{diffData.confirmed}"
-      day="{currentData.day}"
+      day="{previousData.day}"
     />
     <Box
       label="Total Active"
       count="{currentData.total.active}"
       type="active"
       diff="{diffData.active}"
-      day="{currentData.day}"
+      day="{previousData.day}"
     />
     <Box
       label="Total Recoverd"
       count="{currentData.total.recovered}"
       type="recovered"
       diff="{diffData.recovered}"
-      day="{currentData.day}"
+      day="{previousData.day}"
     />
     <Box
       label="Total Deaths"
       count="{currentData.total.deaths}"
       type="deaths"
       diff="{diffData.deaths}"
-      day="{currentData.day}"
+      day="{previousData.day}"
     />
   </div>
   <div class="charts">

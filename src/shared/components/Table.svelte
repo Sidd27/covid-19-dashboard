@@ -24,7 +24,7 @@
 
   let isMobile = false;
 
-  let sameDate;
+  let sameDate = true;
 
   function checkSameDate() {
     const date = new Date();
@@ -34,7 +34,7 @@
     sameDate = day === dateKey;
   }
 
-  checkSameDate();
+  // checkSameDate();
 
   onMount(() => {
     isMobile = window.innerWidth < 560;
