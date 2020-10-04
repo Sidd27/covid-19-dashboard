@@ -9,8 +9,6 @@
   import DashboardTitle from '../shared/components/DashboardTitle.svelte';
   import Table from '../shared/components/Table.svelte';
   // Chart Imports
-  import TotalChart from './Charts/TotalCaseChart.svelte';
-  import LocVsForiegnChart from './Charts/LocalVsForeignChart.svelte';
   import RcvrdVsDeathChart from './Charts/RvrdVsDeadChart.svelte';
   import DailyChart from './Charts/DailyChart.svelte';
 
@@ -106,8 +104,6 @@
     />
   </div>
   <div class="charts">
-    <TotalChart rawData="{totalData}" />
-    <LocVsForiegnChart rawData="{totalData}" />
     <RcvrdVsDeathChart rawData="{totalData}" />
     <DailyChart rawData="{totalData}" />
   </div>

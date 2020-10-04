@@ -49,14 +49,10 @@
   import PageLoader from '../shared/components/PageLoader.svelte';
   import DashboardTitle from '../shared/components/DashboardTitle.svelte';
   import Table from '../shared/components/Table.svelte';
-  // Chart Imports
-  import AgeChart from './Charts/AgeChart.svelte';
-  import GenderChart from './Charts/GenderChart.svelte';
 
   let currentData;
   let prevTableDataMap;
   let diffData;
-  let rawPaitentData;
   let previousData;
   let loading = false;
   let updatedDate;
@@ -93,19 +89,8 @@
       });
   }
 
-  async function getRawPatientData() {
-    await fetch(`https://api.rootnet.in/covid19-in/unofficial/covid19india.org`)
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) {
-          rawPaitentData = res.data.rawPatientData;
-        }
-      });
-  }
-
   onMount(() => {
     getData();
-    getRawPatientData();
   });
 </script>
 
@@ -140,12 +125,6 @@
       diff="{diffData.deaths}"
       day="{currentData.day}"
     />
-  </div>
-  <div class="charts">
-    {#if rawPaitentData}
-      <AgeChart rawData="{rawPaitentData}" />
-      <GenderChart rawData="{rawPaitentData}" />
-    {/if}
   </div>
   <div class="cards-container mt-container">
     <div class="card">

@@ -1,7 +1,7 @@
 {
-  "name": "TODO",
-  "description": "TODO",
-  "version": "0.0.1",
+  "name": "covid19-dashboard",
+  "description": "Dashboard to display covid numbers in India",
+  "version": "0.1.1",
   "scripts": {
     "dev": "sapper dev",
     "build": "sapper build --legacy",
