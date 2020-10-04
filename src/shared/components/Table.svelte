@@ -22,8 +22,6 @@
     return ele;
   });
 
-  let isMobile = false;
-
   let sameDate;
 
   function checkSameDate() {
@@ -35,10 +33,6 @@
   }
 
   checkSameDate();
-
-  onMount(() => {
-    isMobile = window.innerWidth < 560;
-  });
 </script>
 
 <TableSort items="{tableData}">
