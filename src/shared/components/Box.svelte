@@ -75,6 +75,6 @@
   <div class="box-title">{label}</div>
   <div class="box-content {type}">
     <div class="box-data">{count}</div>
-    <div class="box-badge">+{sameDate ? diff : 0}</div>
+    <div class="box-badge">{diff >= 0 ? '+' : ''}{sameDate ? diff : 0}</div>
   </div>
 </div>
