@@ -1,3 +1,45 @@
+<style>
+  .cards-container {
+    width: 35%;
+  }
+
+  .card {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.0625);
+    border-radius: 5px;
+  }
+  .card-title {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+    padding: 10px 20px;
+  }
+
+  .card-body {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .card-body-title {
+    font-size: 24px;
+  }
+
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .card-item {
+    font-size: 18px;
+  }
+
+  @media (max-width: 992px) {
+    .cards-container {
+      width: 100%;
+    }
+  }
+</style>
+
 <script>
   // 3rd Party Imports
   import { onMount } from 'svelte';
@@ -19,6 +61,7 @@
   let yesterdayTableData;
   let loading = false;
   let updatedDate;
+  let totalOutcome;
 
   function getDiff(current, prev) {
     return {
@@ -27,6 +70,10 @@
       deaths: current.summary.deaths - prev.summary.deaths,
       active: current.summary.active - prev.summary.active
     };
+  }
+
+  function calculatePercentage(num, total) {
+    return ((num / total) * 100).toFixed(2);
   }
 
   function getTableData(rawData) {
@@ -55,6 +102,7 @@
           const dataLen = totalData.length;
           currentData = totalData[dataLen - 1];
           currentData.summary.active = getActive(currentData);
+          totalOutcome = currentData.summary.discharged + currentData.summary.deaths;
           const previousData = res.data[dataLen - 2];
           previousData.summary.active = getActive(previousData);
           diffData = getDiff(currentData, previousData);
@@ -106,6 +154,33 @@
   <div class="charts">
     <RcvrdVsDeathChart rawData="{totalData}" />
     <DailyChart rawData="{totalData}" />
+  </div>
+  <div class="cards-container mt-container">
+    <div class="card">
+      <div class="card-title">Outcome Analysis</div>
+      <div class="card-body">
+        <small>Cases which have outcome / closed</small>
+        <div class="card-body-title">{totalOutcome}</div>
+        <div class="card-content">
+          <div>
+            <small>Recovered / Discharged</small>
+            <div class="card-item recovered">
+              {currentData.summary.discharged} (
+              <strong>{calculatePercentage(currentData.summary.discharged, totalOutcome)}%</strong>
+              )
+            </div>
+          </div>
+          <div>
+            <small>Deaths / Deceased</small>
+            <div class="card-item deaths">
+              {currentData.summary.deaths} (
+              <strong>{calculatePercentage(currentData.summary.deaths, totalOutcome)}%</strong>
+              )
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="table-container mt-container">
     <Table {tableData} {yesterdayTableData} day="{currentData.day}" />

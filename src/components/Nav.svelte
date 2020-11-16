@@ -13,28 +13,6 @@
     padding: 0 20px;
   }
 
-  ul {
-    margin: 0;
-    padding: 0;
-  }
-  /* clearfix */
-  ul::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-  li {
-    display: block;
-    float: left;
-    width: 100px;
-    position: relative;
-    text-align: center;
-  }
-
-  li.active {
-    border-bottom: 2px solid rgb(151, 45, 21);
-  }
-
   a {
     text-decoration: none;
     padding: 20px 10px;
@@ -45,18 +23,10 @@
     height: 40px;
   }
 
-  .hamburger {
-    padding: 2px 10px 2px 0;
-    height: 32px;
-  }
-
   .logo {
     margin-right: 20px;
   }
 
-  .logo-small {
-    display: block;
-  }
   .helpline {
     padding: 5px 10px;
     color: rgb(151, 45, 21);
@@ -74,28 +44,7 @@
   }
 </style>
 
-<script>
-  import HamburgeMenu from './HamburgerMenu.svelte';
-  export let segment;
-
-  let showMenu = false;
-</script>
-
-<nav class="hide-mobile">
+<nav>
   <img class="logo" src="logo.svg" alt="COVID-19-India" />
-  <ul>
-    <li class:active="{segment === undefined}">
-      <a href=".">Unofficial</a>
-    </li>
-    <li class:active="{segment === 'official'}">
-      <a href="official">Official</a>
-    </li>
-  </ul>
-  <a class="helpline" href="tel:+911123978046">Call Helpline</a>
-</nav>
-<nav class="show-mobile">
-  <img class="hamburger" src="hamburger.svg" alt="Menu" on:click="{() => (showMenu = true)}" />
-  <img class="logo-small" src="logo-small.svg" alt="Coronavirus" />
-  <HamburgeMenu bind:show="{showMenu}" {segment} />
   <a class="helpline" href="tel:+911123978046">Call Helpline</a>
 </nav>

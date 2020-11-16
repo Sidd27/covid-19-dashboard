@@ -20,15 +20,13 @@
 <script>
   import Nav from '../components/Nav.svelte';
   import Footer from '../components/Footer.svelte';
-
-  export let segment;
 </script>
 
 <svelte:head>
   <title>Covid19 India</title>
 </svelte:head>
 
-<Nav {segment} />
+<Nav />
 <main>
   <slot />
 </main>

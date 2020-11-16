@@ -1,5 +1,5 @@
 <script>
-  import Unofficial from "../components/Unofficial.svelte";
+  import Official from '../components/Official.svelte';
 </script>
 
-<Unofficial />
+<Official />
